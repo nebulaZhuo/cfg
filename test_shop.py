@@ -22,19 +22,20 @@ class TestingPurchased(unittest.TestCase):
         self.assertTrue(purchased(item="TV", balance=1000))
 
 class TestingRetryPurchase(unittest.TestCase):
+
     # TESTING RAISED CUSTOM ERROR
     def test_retrypurchased_too_many_attempts(self):
         with self.assertRaises(ThreeFailedAttempts):
             retry_purchase(item="TV", balance=100, attempts=3)
     
-    # VALID CASES
+    # VALID CASE
     def test_retrypurchased_successful(self):
         with patch("builtins.input", side_effect=["Y", "50"]):
             with patch("sys.stdout", new=StringIO()) as output:
                 retry_purchase(item = "Phone", balance = 100, attempts = 2)
                 self.assertEqual(output.getvalue().strip(), "Here's your Phone!\n\nThanks for coming to The Store. Come again!\n*******************************************")
     
-    # INVALID CASES
+    # INVALID CASE
     def test_retrypurchased_unSuccessful(self):
         with patch("builtins.input", side_effect=["N"]):
             with self.assertRaises(SystemExit):
