@@ -1,7 +1,6 @@
 prices = {"TV": 1000, "Phone": 50, "Alarm Clock": 25}
 balance = 100
 
-
 class ThreeFailedAttempts(Exception):
     pass
 
@@ -50,8 +49,8 @@ def greeting():
                 retry_purchase(choice, balance)
         else:
             raise ValueError("Not a valid answer, please return and try again")
-    except (ValueError, ThreeFailedAttempts) as e:
-        print(e)
+    except (ValueError, ThreeFailedAttempts) as exception:
+        print(exception)
     else:
         print("Thank you for your purchase!")
     finally:
